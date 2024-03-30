@@ -1,10 +1,25 @@
 # knockknock
 
 
-## install rust
+## install go 
+$ curl -OL https://go.dev/dl/go1.22.1.linux-amd64.tar.gz
 
-$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-rustup toolchain install stable
+$ sudo tar -C /usr/local -xvf go1.22.1.linux-amd64.tar.gz
+
+$ sudo vi ~/.profile
+
+```
+export path=$path:/usr/local/go/bin
+```
+
+$ source ~/.profile
+
+
+$  go version
+
+
+#$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+#rustup toolchain install stable
 
 
 

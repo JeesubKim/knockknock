@@ -1,25 +1,32 @@
 package main
+
 import (
-		"fmt"
-		"net/http"
-       )
+	"github.com/go-sql-driver/mysql"
+	"log"
+)
 
-func main(){
-	fmt.Println("Hello Go!")
+func main() {
 
-
-	mux := http.NewServeMux()
-	mux.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "hello world")
+	cfg := mysql.Config{
+		User:                 Envs.DBUser,
+		Passwd:               Envs.DBPassword,
+		Addr:                 Envs.DBAddress,
+		DBName:               Envs.DBName,
+		Net:                  "tcp",
+		AllowNativePasswords: true,
+		ParseTime:            true,
+	}
+	sqlStorage := NewMySQLStorage(cfg)
+	db, err := sqlStorage.Init()
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	mux.HandleFunc("GET /words", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "get words")
-	}
-	mux.HandleFunc("POST /words", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "post words")
-	}
-	if err := http.ListenAndServe("localhost:8080", mux) err != nil {
-		fmt.Println(err.Error())
-	}
+	store := NewStore(db)
+	api := NewAPIServer(":8080", store)
+	api.Serve()
+
 }
+
+// https://www.youtube.com/watch?v=2JNUmzuBNV0
+// https://www.youtube.com/watch?v=H7tbjKFSg58

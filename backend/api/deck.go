@@ -1,20 +1,26 @@
-package main
+package api
 
-import "http"
+import (
+	"gorm.io/gorm"
+	"net/http"
+)
 
 type DeckOption struct {
+	gorm.Model
 	// Deck Option은 Display option 이나
 	//
 }
 type Algorithm interface {
+	// gorm.Model
 }
 type Deck struct {
+	gorm.Model
 	DeckOption DeckOption
 	Algorithm  Algorithm
 	Words      []Word
 }
 
-func InitDeck(router http.Handler) {
+func InitDeck(router *http.ServeMux) {
 
 	router.HandleFunc("GET /api/deck/", handleGetAllDecks)
 	router.HandleFunc("POST /api/deck/", handleCreateNewDeck)

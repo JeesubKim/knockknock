@@ -23,7 +23,7 @@ func initConfig() Config {
 		DBPassword: getEnv("DB_PASSWORD", "knockknock_db_password"),
 		// DBAddress:  fmt.Sprintf("%s:%s", getEnv("DB_HOST", "127.0.0.1"), getEnv("DB_PORT", "3306")),
 		DBAddress: fmt.Sprintf("%s:%s", getEnv("DB_HOST", "192.18.137.35"), getEnv("DB_PORT", "3306")),
-		DBName:    getEnv("DB_NAME", "knockknock"),
+		DBName:    getEnv("DB_NAME", "KnockKnock"),
 		JWTSecret: getEnv("JWT_SECRET", "knockknockrandomjwtsecretkey"),
 	}
 }
